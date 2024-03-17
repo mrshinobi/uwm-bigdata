@@ -1,3 +1,3 @@
 # uwm-bigdata
 
-To jest repozytorium dla kursu Big Data Engineering
+To jest repozytorium dla przedmiotu Big Data Engineering
