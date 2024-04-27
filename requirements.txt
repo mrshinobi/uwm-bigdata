@@ -1,4 +1,8 @@
 black
+findspark
 isort
 jupyter
+pre-commit
 pyspark
+pytest
+pytest-cov
