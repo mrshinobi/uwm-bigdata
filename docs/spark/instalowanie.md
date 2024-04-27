@@ -6,8 +6,8 @@
 Pakiet Apache Spark można pobrać ze strony: http://spark.apache.org/downloads.html
 
 Kroki instalacji dla wersji Apache Spark 3.1.1:
-1. Ściągnąć paczkę: https://www.apache.org/dyn/closer.lua/spark/spark-3.1.1/spark-3.1.1-bin-hadoop2.7.tgz
-2. Rozpakować ją przykładowo do katalogu ~/bin/spark-3.1.1-bin-hadoop2.7 lub c:/bin/spark-3.1.1-bin-hadoop2.7
+1. Ściągnąć paczkę: https://www.apache.org/dyn/closer.lua/spark/spark-3.5.1/spark-3.5.1-bin-hadoop2.7.tgz
+2. Rozpakować ją przykładowo do katalogu ~/bin/spark-3.5.1-bin-hadoop2.7 lub c:/bin/spark-3.1.1-bin-hadoop2.7
 3. Ustawić zmienną `SPARK_HOME`, by wskazywała na katalog ze Sparkiem.
 
 
@@ -75,7 +75,6 @@ Użycie w notatniku:
 ```python
 import findspark
 findspark.init()                 # gdy zmienna SPARK_HOME jest ustawiona w systemie
-findspark.init(SPARK_HOME_PATH)  # gdy zmienna SPARK_HOME nie jest ustawiona w systemie
 
 from pyspark.sql import SparkSession
 spark = SparkSession.builder.appName("DataScience").getOrCreate()
