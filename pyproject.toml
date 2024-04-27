@@ -1,0 +1,72 @@
+[project]
+authors = [
+  {name = "Pawel Procaj", email = "pawel.procaj@gmail.com"}
+]
+classifiers = [
+  "Framework :: Apache Spark",
+  "Intended Audiance :: Data Engineers",
+  "Intended Audiance :: Data Scientists",
+  "Programming Language :: Python :: 3.11",
+]
+dependencies = [
+  "pyspark"
+]
+description = "UWM Big Data project"
+keywords = ["big data", "spark", "uwm"]
+name = "uwm-bigdata"
+readme = "README.md"
+requires-python = '>=3.11'
+version = "0.1.0"
+
+[tool.bandit]
+exclude_dirs = ["tests"]
+skips = ["B101", "B601"]
+tests = ["B201", "B301"]
+
+[tool.black]
+color = true
+exclude = '''
+/(
+    \.git
+  | \.hg
+  | \.pytest_cache
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+  | venv
+)/
+'''
+include = '\.pyi?$'
+line-length = 120
+preview = true
+target-version = ['py311']
+
+[tool.coverage.report]
+exclude_lines = [
+  'if __name__ == "__main__":'
+]
+
+[tool.isort]
+line_length = 120
+multi_line_output = 3
+profile = 'black'
+skip_gitignore = true
+treat_all_comments_as_code = true
+use_parentheses = true
+
+[tool.pytest.ini_options]
+addopts = "-vs"
+filterwarnings = [
+  "error",
+  "ignore:path is deprecated.*:DeprecationWarning:",
+  "ignore::pytest.PytestUnraisableExceptionWarning"
+]
+junit_family = "xunit2"
+pythonpath = "src"
+testpaths = [
+  "tests/unit",
+  "tests/integration"
+]
+xfail_strict = true
