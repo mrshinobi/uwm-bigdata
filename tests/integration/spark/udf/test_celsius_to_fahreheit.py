@@ -36,8 +36,7 @@ def test_celsius_to_fahrenheit_function2(celsius: float, expected: float):
 
 
 def test_create_data_frame(spark: SparkSession):
-    df = spark.createDataFrame([(0,), (30,), (100,)], ["Celsius"])
-    df = create_data_frame(spark, df)
+    df = create_data_frame(spark)
     assert df.count() == 3
     assert df.columns == ["Celsius"]
     assert df.dtypes == [("Celsius", "bigint")]
