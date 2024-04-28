@@ -1,8 +1,10 @@
 spark-submit --master "local[4]" --name "Test" nazwa_skryptu --parametr1 wartosc1 --parametr2 wartosc2
 
 
+spark-submit nazwa_skryptu.py
+
 # mozliwe argumenty spark-submit
-  --deploy-mode client \
+  --deploy-mode client \  # cluster
   --executor-memory 2G \
   --driver-memory 2G \
   --num-executors 2 \

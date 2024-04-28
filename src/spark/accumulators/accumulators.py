@@ -5,7 +5,7 @@ sc = SparkContext.getOrCreate()
 accumulator = sc.accumulator(0)
 
 
-def count_words(line):
+def count_words(line: str) -> list[str]:
     global accumulator
     words = line.split()
     for word in words:
