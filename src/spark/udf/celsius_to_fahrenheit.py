@@ -21,7 +21,7 @@ def create_df_with_fahreheit(celsius_df: DataFrame) -> DataFrame:
     return df_with_fahrenheit
 
 
-def create_data_frame(spark: SparkSession, df: DataFrame) -> DataFrame:
+def create_data_frame(spark: SparkSession) -> DataFrame:
     return spark.createDataFrame([(0,), (30,), (100,)], ["Celsius"])
 
 
