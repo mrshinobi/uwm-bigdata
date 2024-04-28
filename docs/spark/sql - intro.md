@@ -46,7 +46,7 @@ Adamowicz|M.|708|KR|
 
 ## Schematy danych
 
-Schematy w Sparku: 
+Schematy w Sparku:
 
 1. Definiują format ramki danych.
 2. Mogą zawierać różne typy danych
@@ -66,7 +66,7 @@ import pyspark.sql.types
 people_schema = StructType([
     StructField('imie', StringType(), True),
     StructField('wiek', IntegerType(), True),
-    StructField('miasto', StringType(), True) 
+    StructField('miasto', StringType(), True)
 ])
 ```
 

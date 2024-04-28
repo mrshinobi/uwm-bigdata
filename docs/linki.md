@@ -8,7 +8,7 @@
 
 * [Inżynieria danych w praktyce. Kluczowe koncepcje i najlepsze technologie](https://helion.pl/ksiazki/inzynieria-danych-w-praktyce-kluczowe-koncepcje-i-najlepsze-technologie-joe-reis-matt-housley,indapr.htm)
 * [Potoki danych. Leksykon kieszonkowy.](https://helion.pl/ksiazki/potoki-danych-leksykon-kieszonkowy-przenoszenie-i-przetwarzanie-danych-na-potrzeby-ich-analizy-james-densmore,potdan.htm)
-* [Przetwarzanie danych w dużej skali](https://helion.pl/ksiazki/przetwarzanie-danych-w-duzej-skali-niezawodnosc-skalowalnosc-i-latwosc-konserwacji-systemow-martin-kleppmann,przdav.htm) 
+* [Przetwarzanie danych w dużej skali](https://helion.pl/ksiazki/przetwarzanie-danych-w-duzej-skali-niezawodnosc-skalowalnosc-i-latwosc-konserwacji-systemow-martin-kleppmann,przdav.htm)
 * [Designing Data-Intensive Applications: The Big Ideas Behind Reliable, Scalable, and Maintainable Systems](https://helion.pl/ksiazki/designing-data-intensive-applications-the-big-ideas-behind-reliable-scalable-and-maintainable-sys-martin-kleppmann,e_0gxd.htm)
 * [Big Data. Najlepsze praktyki budowy skalowalnych systemów obsługi danych w czasie rzeczywistym](https://helion.pl/ksiazki/big-data-najlepsze-praktyki-budowy-skalowalnych-systemow-obslugi-danych-w-czasie-rzeczywistym-nathan-marz-james-warren,bigdat.htm)
 
@@ -26,7 +26,7 @@
 
 * [Spark. Błyskawiczna analiza danych](https://helion.pl/ksiazki/spark-blyskawiczna-analiza-danych-wydanie-ii-jules-s-damji-brooke-wenig-tathagata-das-denny,sparb2.htm)
 * [Zaawansowana analiza danych w PySpark](https://helion.pl/ksiazki/zaawansowana-analiza-danych-w-pyspark-metody-przetwarzania-informacji-na-szeroka-skale-z-wykorzysta-akash-tandon-sandy-ryza-uri-laserson-sean-owen,zaanpy.htm)
-  
+
 
 ## Hadoop
 

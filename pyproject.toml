@@ -6,7 +6,7 @@ classifiers = [
   "Framework :: Apache Spark",
   "Intended Audiance :: Data Engineers",
   "Intended Audiance :: Data Scientists",
-  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.11"
 ]
 dependencies = [
   "pyspark"

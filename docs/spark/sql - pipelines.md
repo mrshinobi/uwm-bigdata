@@ -38,9 +38,9 @@ df = df.withColumn('id', monotonically_increasing_id())
 ...
 df.write.parquet('outdata.parquet')
 df.write.json('outdata.json')
-``` 
- 
- 
+```
+
+
 
 ## Techniki obsługi danych
 

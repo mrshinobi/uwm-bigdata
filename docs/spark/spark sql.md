@@ -35,7 +35,7 @@ Trzy kroki do stworzenia DF:
 
 - Spark pozwala tworzyć tymczasowe widoki na bazie danych w DataFrame, do których następnie można odwoływać się w zapytaniu SQL.
 - Widoki tymczasowe są definiowane na czas trwania sesji I znikną, jeśli zakończy się tworząca je sesja.
-- Jest możliwość stworzenia globalnego widoku, który będzie istniał aż do zakończenia całej aplikacji Sparka. 
+- Jest możliwość stworzenia globalnego widoku, który będzie istniał aż do zakończenia całej aplikacji Sparka.
   Tworzy się on w ramach bazy danych **global_temp**.
 
 ## Data Sources
@@ -100,14 +100,14 @@ W pakiecie `pyspark.sql.functions` dostępnych jest kilka ciekawych i ważnych f
 
 ### Generowanie danych losowych
 
-Generacja danych losowych przydaje się do testów istniejących już algorytmów. 
-W pakiecie `pyspark.sql.functions` istnieją funkcje do generowania kolumn, które mogą zawierać przykładowo wartości 
+Generacja danych losowych przydaje się do testów istniejących już algorytmów.
+W pakiecie `pyspark.sql.functions` istnieją funkcje do generowania kolumn, które mogą zawierać przykładowo wartości
 z rozkładu normalnego (funkcja randn) lub ciągłego (funkcja rand).
 
 
 ### Statystyki sumaryczne
 
-Funkcja `df.describe()` pozwala poznać szereg wartości statystycznych dla zbioru danych. 
+Funkcja `df.describe()` pozwala poznać szereg wartości statystycznych dla zbioru danych.
 Zwraca obiekt DataFrame zawierający następujące informacje dla każdej z kolumn:
 - liczba nie-pustych (nie-nullowych) wpisów w zbiorze
 - wartość średnia (mean)

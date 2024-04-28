@@ -38,7 +38,7 @@ Mierzenie big data może odbywać się na różne sposoby, w zależności od spe
 
 2. **Szybkość przesyłu danych** - Określa, jak szybko dane są generowane, przetwarzane i analizowane. Może być wyrażona w jednostkach takich jak GB na sekundę.
 
-    Przykłady: 
+    Przykłady:
     - 1 GB/s - 1 gigabajt danych na sekundę
     - 1 TB/d - 1 terabajt danych dziennie
     - 1 PB/m - 1 petabajt danych miesięcznie
@@ -80,7 +80,7 @@ Mierzenie big data może odbywać się na różne sposoby, w zależności od spe
     - Dane niebezpieczne - dane, które są potencjalnie niebezpieczne, np. dane osobowe, finansowe
     - Dane poufne - dane, które są poufne, wymagające ochrony, np. dane osobowe, finansowe
 
-Mierzenie danych big data nie ogranicza się tylko do ich objętości, ale również do szybkości, z jaką są one tworzone i przetwarzane, ich różnorodności, wartości oraz prawdziwości. 
+Mierzenie danych big data nie ogranicza się tylko do ich objętości, ale również do szybkości, z jaką są one tworzone i przetwarzane, ich różnorodności, wartości oraz prawdziwości.
 Te aspekty są kluczowe dla efektywnego zarządzania i wykorzystania dużych zbiorów danych.
 
 

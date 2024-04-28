@@ -87,11 +87,11 @@ Cechy:
 
 Zaimplementowane algorytmy:
 - Statystyka sumaryczna, korelacje, generacja danych losowych.
-- Klasyfikacja i regresja: rzadkie i gęste wektory oraz macierze, regresja logistyczna, regresja liniowa, 
+- Klasyfikacja i regresja: rzadkie i gęste wektory oraz macierze, regresja logistyczna, regresja liniowa,
   drzewa decyzyjne, klasyfikacja metodą naiwnego Bayesa.
 - Filtrowanie kolaboratywne: ALS (metoda naprzemiennych najmniejszych kwadratów, ang. alternating least squeares).
 - Klastrowanie: k-means, alokacja metodą Dirichleta (ang. latent Dirichlet allocation, LDA).
-- Techniki redukcji wymiarów: dekompozycja wartości osobliwej (ang. singular value decomposition, SVD) 
+- Techniki redukcji wymiarów: dekompozycja wartości osobliwej (ang. singular value decomposition, SVD)
   oraz analiza głównych składowych (ang. principal component analysis, PCA).
 - Ekstrakcja cech oraz funkcje transformujące.
 - Algorytmy optymalizacyjne: stochastic gradient descent, limited-memory BFGS (L-BFGS).
@@ -100,18 +100,18 @@ Zaimplementowane algorytmy:
 ### Spark GraphX
 
 Cechy:
-- Spark GraphX to rozproszona biblioteka do przetwarzania danych grafowych na bazie Spark Core oraz Spark SQL. 
+- Spark GraphX to rozproszona biblioteka do przetwarzania danych grafowych na bazie Spark Core oraz Spark SQL.
 - Służy do analizy danych z użyciem koncepcji grafów skierowanych.
 - Zawiera kilka popularnych algorytmów, m.in. PageRank, zliczanie trójkątów.
 
-> W grafach skierowanych do oznaczania obiektów używa się wierzchołków grafów, a jako relacje traktowane 
+> W grafach skierowanych do oznaczania obiektów używa się wierzchołków grafów, a jako relacje traktowane
 są krawędzie między wierzchołkami.
 
 
 ## Klaster Apache Spark
 
 Spark może być uruchomiony w `trybie klastrowym`, czyli w grupie maszyn współpracujących ze sobą.
-Aplikacje Sparka działają wtedy jako niezależne zestawy procesów w klastrze, koordynowane przez obiekt SparkContext 
+Aplikacje Sparka działają wtedy jako niezależne zestawy procesów w klastrze, koordynowane przez obiekt SparkContext
 w programie głównym (w sterowniku lub w skrypcie driver'a).
 
 ### Zarządca klastra
@@ -129,8 +129,8 @@ Zasobami mogą być:
 - ilość procesorów (rdzeni, CPU)
 - miejsce dla danych na dyskach
 
-Po połączeniu z managerem klastra, posiadając dane o lokalizacji wolnych zasobów, Spark tworzy wykonawców (ang. executors) 
-na węzłach w klastrze, a dokłądniej tworzy na nich procesy wykonujące obliczenia i trzymające dane aplikacji. 
+Po połączeniu z managerem klastra, posiadając dane o lokalizacji wolnych zasobów, Spark tworzy wykonawców (ang. executors)
+na węzłach w klastrze, a dokłądniej tworzy na nich procesy wykonujące obliczenia i trzymające dane aplikacji.
 
 Następnie Spark rozsyła kod aplikacji do wykonawców, a SparkContext wysyła im zadania do wykonania.
 
@@ -149,24 +149,24 @@ Cechy aplikacji monitorującej Sparka:
 
 ### Wykonywanie kodu w klastrze
 
-- Kiedy wystartuje interpreter Python w PySparku uruchamia się również maszyna `JVM`, z którą on się komunikuje 
+- Kiedy wystartuje interpreter Python w PySparku uruchamia się również maszyna `JVM`, z którą on się komunikuje
   przez `gniazdo sieciowe` (ang. *socket*), czyli wewnętrzny mechanizm system operacyjnego.
 - By obsłużyć komunikację PySpark używa do tego projektu `Py4J`.
 - JVM funkcjonuje jako właściwy `sterownik` (ang. *driver*).
 - JVM ładuje kontekst `JavaSparkContext`, który komunikuje się z wykonawcami (executorami) Sparka w klastrze.
 - `Interfejs API Pythona` woła obiekt `SparkContext`, który tłumaczy te wołania na wołania interfejsu Java API modułu JavaSparkContext.
-- Na przykład implementacja metody `sc.textFile()` rozsyła wołanie do metody `.textFile()` obiektu JavaSparkContext, 
+- Na przykład implementacja metody `sc.textFile()` rozsyła wołanie do metody `.textFile()` obiektu JavaSparkContext,
   który ostatecznie komunikuje się z `maszyną JVM wykonawcy`, by ten załadował tekst z `HDFS`.
-- Wykonawcy Sparka na klastrze startują swój `własny interpreter` i komunikują się z nim przez `potok`, 
+- Wykonawcy Sparka na klastrze startują swój `własny interpreter` i komunikują się z nim przez `potok`,
   kiedy muszą wykonać `kod użytkownika`.
 - Obiekt Python RDD na lokalnym kliencie PySpark koresponduje z obiektem klasy `PythonRDD` w lokalnym JVM.
 - Dane związane z RDD żyją właściwie w maszynie SparkJVM jako obiekty Java.
-- Na przykład, uruchomienie `sc.textFile()` w interpreterze Pythona będzie wołało metodę `JavaSparkContext.textFile()`, 
+- Na przykład, uruchomienie `sc.textFile()` w interpreterze Pythona będzie wołało metodę `JavaSparkContext.textFile()`,
   która załaduje dane jako obiekty Java String w klastrze.
 - Podobnie, ładowanie pliku `Parquet`/`Avro` używając metody `newAPIHadoopFile` będzie ładowało obiekty jako obiekty `Java Avro`.
-- Kiedy wołania API są tworzone w obiekcie Python RDD, każdy związany kod (np. funkcja lambda Pythona) jest serializowany 
+- Kiedy wołania API są tworzone w obiekcie Python RDD, każdy związany kod (np. funkcja lambda Pythona) jest serializowany
   jako tzw. moduł `cloudpickle` (format `PiCloud`) i jest rozsyłany do wykonawców.
-- Dane są konwertowane z obiektów Java na reprezentację w języku Python i strumieniowane do skojarzonego z wykonawcą 
+- Dane są konwertowane z obiektów Java na reprezentację w języku Python i strumieniowane do skojarzonego z wykonawcą
   interpretera Pythona poprzez utworzone wcześniej gniazdo.
 
 ### Powłoka pyspark
@@ -194,20 +194,20 @@ Wersja dla języka Java nie posiada własnej konsoli.
     - [Strumieniowanie Strukturalne](https://spark.apache.org/docs/latest/structured-streaming-programming-guide.html)
     - [Uczenie Maszynowe](https://spark.apache.org/docs/latest/ml-guide.html)
     - [GraphX](https://spark.apache.org/docs/latest/graphx-programming-guide.html)
-    - [PySpark](https://spark.apache.org/docs/latest/api/python/getting_started/index.html) oraz 
+    - [PySpark](https://spark.apache.org/docs/latest/api/python/getting_started/index.html) oraz
     - [PySpark User Guide](https://spark.apache.org/docs/latest/api/python/user_guide/index.html)
     - [SparkR](https://spark.apache.org/docs/latest/sparkr.html)
 3. Specyfikacja API
     - [PySpark API](https://spark.apache.org/docs/latest/api/python/index.html)
     - [Referencja](https://spark.apache.org/docs/latest/api/python/reference/index.html)
     - [Wbudowane funkcje SQL](https://spark.apache.org/docs/latest/api/sql/index.html)
- 
+
 4. Przykłady
     - [Przykłady na GitHub](https://github.com/apache/spark/tree/v3.1.1-rc3/examples/src/main/python)
 
 5. PySpark
     - [Strona projektu PySpark na pipi.org](https://pypi.org/project/pyspark/)
-    - [Projekt Koalas]()    
+    - [Projekt Koalas]()
 
 
 

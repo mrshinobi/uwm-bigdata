@@ -12,12 +12,16 @@ sc = SparkContext(conf=conf)
 text_rdd = sc.textFile(text_file)
 
 # Filtracja i zliczanie linii zawierających 'a'
-count_a = text_rdd.filter(lambda line: "a" in line).count()
+count_a = text_rdd.filter(lambda line: "a" in line)
+count_a_wynik = count_a.count()
 
 # Filtracja i zliczanie linii zawierających 'b'
 count_b = text_rdd.filter(lambda line: "b" in line).count()
 
+
 print(f"Lines with a: {count_a}, lines with b: {count_b}")
+
+input("Press Enter to continue...")
 
 # Zakończenie sesji Spark
 sc.stop()

@@ -59,7 +59,7 @@ voter_df.where(~ voter_df._c1.isNull())
 
 ### Transformacje na kolumnach typu string
 
-Zawarte w pakiecie funkcji **pyspark.sql.functions**: 
+Zawarte w pakiecie funkcji **pyspark.sql.functions**:
 ```python
 import pyspark.sql.functions as F
 ```
@@ -80,7 +80,7 @@ voter_df.withColumn('year', voter_df['_c4'].cast(IntegerType()))
 
 Różne funkcje / transformacje narzędziowe do pracy z **ArrayType**:
 
-`.size(<column>)` - zwraca liczbę kolumn 
+`.size(<column>)` - zwraca liczbę kolumn
 
 `.getItem(<index>)` - zwraca z listy kolumn konkretny obiekt o indeksie `index`
 
@@ -102,7 +102,7 @@ Klauzule warunkowe obejmują:
 ```python
 df.select(df.imie, df.wiek, F.when(df.wiek >= 18, "adult"))
 ```
- 
+
 |imię|wiek||
 |---|---|---|
 |Alicja|14
@@ -116,7 +116,7 @@ df.select(df.name, df.wiek,
           .when(df.wiek >= 18, "adult")
           .when(df.wiek < 18, "minor"))
 ```
-    
+
 |imię|wiek||
 |---|---|---|
 |Alicja|14|minor|
@@ -138,7 +138,7 @@ df.select(df.imie, df.wiek,
 
 User Defined Functions czyli UDF-y:
 - User = Użytkownik
-- Defined = Definiuje własne 
+- Defined = Definiuje własne
 - Functions = Funkcje
 
 Cechy:
@@ -165,7 +165,7 @@ udf_reverse_string = udf(reverse_string, StringType())
 Użycie w Sparku:
 ```
 user_df = user_df.withColumn('reverse_name', udf_reverse_string(user_df.name))
-```    
+```
 
 ### Przykład bezparametrowy - sortowanie
 

@@ -7,9 +7,7 @@ spark = SparkSession.builder.appName("StopWordsRemover").getOrCreate()
 stop = ["<stop_words>"]
 
 
-df = spark.createDataFrame(
-    [("hello",), ("world",), ("test",), ("hi",), ("hello world",)], ["name"]
-)
+df = spark.createDataFrame([("hello",), ("world",), ("test",), ("hi",), ("hello world",)], ["name"])
 
 df = df.withColumn("tokens", F.split("name", "\\s+"))
 

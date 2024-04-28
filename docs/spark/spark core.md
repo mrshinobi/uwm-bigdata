@@ -52,7 +52,7 @@ Cache przydaje się, gdy wykonywana na Sparku praca wymaga kilku akcji wykonują
 
 ## Leniwa ewaluacja
 
-Przekształcenia zbiorów RDD takie jak map, filter, czy nawet textFile są ewaluowane w sposób leniwy, co oznacza, 
+Przekształcenia zbiorów RDD takie jak map, filter, czy nawet textFile są ewaluowane w sposób leniwy, co oznacza,
 że Spark nie zacznie ich wykonywania, dopóki nie zobaczy końcowej akcji.
 
 Poprzez leniwą ewaluację oraz grupowanie działań Spark optymalizuje liczbę operacji na danych.
@@ -62,7 +62,7 @@ Poprzez leniwą ewaluację oraz grupowanie działań Spark optymalizuje liczbę 
 
 W Sparku przetwarzanie zadań modelowane jest z użyciem koncepcji grafu DAG.
 
-> DAG to skierowany graf acykliczny, czyli bez cykli (pętli) między węzłami grafu. 
+> DAG to skierowany graf acykliczny, czyli bez cykli (pętli) między węzłami grafu.
 > Tworzony jest jako kolekcja wierzchołków oraz krawędzi skierowanych, gdzie każda krawędź łączy jeden wierzchołek z innym.
 
 Graf DAG budowany jest dla łańcucha transformacji i akcji.
@@ -95,9 +95,9 @@ Liczbę etapów można wyliczyć następująco:
 liczba etapów = liczba szerokich transformacji + 1
 ```
 
-W ogólności etapy są wykonywane sekwencyjnie oprócz etapu `join`, dla którego dwa etapy poprzedzające złączenie mogą być uruchamiane równolegle. 
+W ogólności etapy są wykonywane sekwencyjnie oprócz etapu `join`, dla którego dwa etapy poprzedzające złączenie mogą być uruchamiane równolegle.
 
-Zadania (taski) zgrupowane w etapie uruchamiane są równolegle. 
+Zadania (taski) zgrupowane w etapie uruchamiane są równolegle.
 Liczba tasków zależy od liczby partycji RDD.
 
 Powyższy schemat przetwarzania w Sparku można więc zobrazować w ten sposób:
@@ -106,7 +106,7 @@ W aplikacji WWW sterownika Sparka można podejrzeć szczęgółowy obraz zbudowa
 
 ## Obsługa różnych formatów plików
 
-Spark potrafi obsługiwać wiele typów plików, a że powstał z myślą o zastosowaniu m.in. w systemie Hadoop to potrafi 
+Spark potrafi obsługiwać wiele typów plików, a że powstał z myślą o zastosowaniu m.in. w systemie Hadoop to potrafi
 obsługiwać również dane w formatach tej platformy.
 
 Przykładowe formaty plików obsługiwane przez Sparka:
@@ -120,7 +120,7 @@ Przykładowe formaty plików obsługiwane przez Sparka:
 - text
 
 > Parquet to kolumnowy format przechowywania danych. Zawiera w sobie schemat danych oraz pozwala go wersjonować.
-> Ma wsparcie dla struktur zagnieżdżonych. 
+> Ma wsparcie dla struktur zagnieżdżonych.
 
 > Avro to wierszowy format przechowywania danych popularny w świecie Big Data. Zawiera wsobie schemat danych.
 
@@ -144,7 +144,7 @@ Dużą efektywność przechowywania danych mają pliki ORC oraz Parquet.
 
 ## Wysłanie aplikacji PySpark do wykonania
 
-Aplikacja PySpark to aplikacja wykorzystująca Python API programistycznie. 
+Aplikacja PySpark to aplikacja wykorzystująca Python API programistycznie.
 
 Przykład:
 ```python
@@ -175,7 +175,7 @@ Przykład wywołania:
 Lines with a: 46, Lines with b: 23
 ```
 
-Jeżeli PySpark jest zainstalowany jako biblioteka środowiska Python (przez pip install pyspark) 
+Jeżeli PySpark jest zainstalowany jako biblioteka środowiska Python (przez pip install pyspark)
 to można uruchomić standardowy interpreter języka Python:
 ```shell script
 > python SimpleApp.py

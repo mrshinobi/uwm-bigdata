@@ -1,8 +1,10 @@
 black
 findspark
+flake8
 isort
 jupyter
 pre-commit
+pyarrow
 pyspark
 pytest
 pytest-cov

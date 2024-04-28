@@ -1,13 +1,13 @@
 # Potoki w Unix/Linux
 
-Potoki (ang. "pipes") to narzędzie w systemach Unix i Linux, które pozwala na przekazywanie danych 
-z wyjścia jednego programu do wejścia innego programu. 
+Potoki (ang. "pipes") to narzędzie w systemach Unix i Linux, które pozwala na przekazywanie danych
+z wyjścia jednego programu do wejścia innego programu.
 
 
 ## Jak działają?
 
-Potoki pozwalają na tworzenie ciągów poleceń, gdzie wynik jednego polecenia jest natychmiast przekazywany 
-jako wejście do kolejnego polecenia. To przekazywanie odbywa się w czasie rzeczywistym, dzięki czemu drugie 
+Potoki pozwalają na tworzenie ciągów poleceń, gdzie wynik jednego polecenia jest natychmiast przekazywany
+jako wejście do kolejnego polecenia. To przekazywanie odbywa się w czasie rzeczywistym, dzięki czemu drugie
 polecenie może zacząć przetwarzanie danych od razu po otrzymaniu pierwszych fragmentów danych z pierwszego polecenia.
 
 Fizycznym mechanizmem komunikacji jest komunikacja międzyprocesowa (IPC), która pozwala na przekazywanie danych między
