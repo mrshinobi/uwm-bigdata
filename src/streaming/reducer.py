@@ -22,9 +22,8 @@ def main():
         word, count, word_len = parse_line(fields)
 
         if word in word_counters:
-
-            slowo_ze_slownika = word_counters[word]
-            slowo_ze_slownika.count = slowo_ze_slownika.count + count
+            existing_word = word_counters[word]
+            existing_word.count = existing_word.count + count
 
             word_counters[word].count += count
 
@@ -32,7 +31,7 @@ def main():
             word_counters[word] = Word(word, count, word_len)
 
     for keyword, word in sorted(word_counters.items()):
-        print(keyword, word.count, word.word_len, sep=",")
+        print(keyword, word.count, sep=",")
 
 
 if __name__ == "__main__":
