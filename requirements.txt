@@ -1,3 +1,4 @@
+awsglue-dev
 black
 findspark
 flake8

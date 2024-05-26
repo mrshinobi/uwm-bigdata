@@ -1,0 +1,271 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: >
+  Sklep internetowy - tworzenie zasobów AWS Glue dla danych sklepu internetowego.
+  Zasoby: baza danych, bucket S3, role IAM, tabele AWS Glue.
+
+# zasoby do tworzenia metadanych w katalogu danych
+Resources:
+
+  # tworzenie bazy danych AWS Glue
+  SklepDB:
+    Type: AWS::Glue::Database
+    Properties:
+      CatalogId: !Ref AWS::AccountId
+      DatabaseInput:
+        Name: sklep
+        Description: Baza danych sklepu internetowego
+
+  # tworzenie bucketu S3
+  SklepS3Bucket:
+    Type: AWS::S3::Bucket
+#    DeletionPolicy: Retain
+    Properties:
+      BucketName: !Sub 'uwm-sklep-${AWS::AccountId}'
+
+  # tworzenie roli IAM
+  SklepGlueRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: SklepGlueRole
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - glue.amazonaws.com
+            Action:
+              - sts:AssumeRole
+      Policies:
+        - PolicyName: sklep-policy
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - s3:GetObject
+                  - s3:PutObject
+                  - s3:ListBucket
+                  - s3:DeleteObject
+                Resource:
+                  - !Join ['', [ 'arn:aws:s3:::', !Ref "SklepS3Bucket", /*]]
+                  - arn:aws:s3:::uwm-bigdata/*
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSGlueServiceRole
+      Path: "/"
+
+  # tworzenie tabeli AWS Glue
+  CategoriesTable:
+    # najpierw tworzymy bazę danych, a następnie tabele
+    DependsOn: "SklepDB"
+
+    Type: AWS::Glue::Table
+    Properties:
+      CatalogId: !Ref AWS::AccountId
+      DatabaseName: !Ref "SklepDB"
+      TableInput:
+        Name: categories
+        Description: Definicja kolumn tabeli categories
+        TableType: EXTERNAL_TABLE
+        Parameters:
+          classification: parquet
+          typeOfData: file
+        StorageDescriptor:
+          OutputFormat: org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat
+          Columns:
+            - Name: category_id
+              Type: int
+            - Name: category_department_id
+              Type: int
+            - Name: category_name
+              Type: string
+          InputFormat: org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat
+          Location: s3://uwm-bigdata/data/sklep/categories/
+          SerdeInfo:
+            Parameters:
+              field.delim: ","
+            SerializationLibrary: org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe
+
+  # tworzenie tabeli AWS Glue
+  CustomersTable:
+    # najpierw tworzymy bazę danych, a następnie tabele
+    DependsOn: "SklepDB"
+
+    Type: AWS::Glue::Table
+    Properties:
+      CatalogId: !Ref AWS::AccountId
+      DatabaseName: !Ref "SklepDB"
+      TableInput:
+        Name: customers
+        Description: Definicja kolumn tabeli customers
+        TableType: EXTERNAL_TABLE
+        Parameters:
+          classification: parquet
+          typeOfData: file
+        StorageDescriptor:
+          OutputFormat: org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat
+          Columns:
+            - Name: customer_id
+              Type: int
+            - Name: customer_fname
+              Type: string
+            - Name: customer_lname
+              Type: string
+            - Name: customer_email
+              Type: string
+            - Name: customer_password
+              Type: string
+            - Name: customer_street
+              Type: string
+            - Name: customer_city
+              Type: string
+            - Name: customer_state
+              Type: string
+            - Name: customer_zipcode
+              Type: string
+          InputFormat: org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat
+          Location: s3://uwm-bigdata/data/sklep/customers/
+          SerdeInfo:
+            Parameters:
+              field.delim: ","
+            SerializationLibrary: org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe
+
+  # tworzenie tabeli AWS Glue
+  DepartmentsTable:
+    # najpierw tworzymy bazę danych, a następnie tabele
+    DependsOn: "SklepDB"
+
+    Type: AWS::Glue::Table
+    Properties:
+      CatalogId: !Ref AWS::AccountId
+      DatabaseName: !Ref "SklepDB"
+      TableInput:
+        Name: departments
+        Description: Definicja kolumn tabeli departments
+        TableType: EXTERNAL_TABLE
+        Parameters:
+          classification: parquet
+          typeOfData: file
+        StorageDescriptor:
+          OutputFormat: org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat
+          Columns:
+            - Name: department_id
+              Type: int
+            - Name: department_name
+              Type: string
+          InputFormat: org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat
+          Location: s3://uwm-bigdata/data/sklep/departments/
+          SerdeInfo:
+            Parameters:
+              field.delim: ","
+            SerializationLibrary: org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe
+
+  # tworzenie tabeli AWS Glue
+  OrderItemsTable:
+    # najpierw tworzymy bazę danych, a następnie tabele
+    DependsOn: "SklepDB"
+
+    Type: AWS::Glue::Table
+    Properties:
+      CatalogId: !Ref AWS::AccountId
+      DatabaseName: !Ref "SklepDB"
+      TableInput:
+        Name: order_items
+        Description: Definicja kolumn tabeli order_items
+        TableType: EXTERNAL_TABLE
+        Parameters:
+          classification: parquet
+          typeOfData: file
+        StorageDescriptor:
+          OutputFormat: org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat
+          Columns:
+            - Name: order_item_id
+              Type: int
+            - Name: order_item_order_id
+              Type: int
+            - Name: order_item_product_id
+              Type: int
+            - Name: order_item_quantity
+              Type: int
+            - Name: order_item_subtotal
+              Type: float
+            - Name: order_item_product_price
+              Type: float
+          InputFormat: org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat
+          Location: s3://uwm-bigdata/data/sklep/order_items/
+          SerdeInfo:
+            Parameters:
+              field.delim: ","
+            SerializationLibrary: org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe
+
+  # tworzenie tabeli AWS Glue
+  OrdersTable:
+    # najpierw tworzymy bazę danych, a następnie tabele
+    DependsOn: "SklepDB"
+
+    Type: AWS::Glue::Table
+    Properties:
+      CatalogId: !Ref AWS::AccountId
+      DatabaseName: !Ref "SklepDB"
+      TableInput:
+        Name: orders
+        Description: Definicja kolumn tabeli orders
+        TableType: EXTERNAL_TABLE
+        Parameters:
+          classification: parquet
+          typeOfData: file
+        StorageDescriptor:
+          OutputFormat: org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat
+          Columns:
+            - Name: order_id
+              Type: int
+            - Name: order_date
+              Type: timestamp
+            - Name: order_customer_id
+              Type: int
+            - Name: order_status
+              Type: string
+          InputFormat: org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat
+          Location: s3://uwm-bigdata/data/sklep/orders/
+          SerdeInfo:
+            Parameters:
+              field.delim: ","
+            SerializationLibrary: org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe
+
+  # tworzenie tabeli AWS Glue
+  ProductsTable:
+    # najpierw tworzymy bazę danych, a następnie tabele
+    DependsOn: "SklepDB"
+
+    Type: AWS::Glue::Table
+    Properties:
+      CatalogId: !Ref AWS::AccountId
+      DatabaseName: !Ref "SklepDB"
+      TableInput:
+        Name: products
+        Description: Definicja kolumn tabeli products
+        TableType: EXTERNAL_TABLE
+        Parameters:
+          classification: parquet
+          typeOfData: file
+        StorageDescriptor:
+          OutputFormat: org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat
+          Columns:
+            - Name: product_id
+              Type: int
+            - Name: product_category_id
+              Type: int
+            - Name: product_name
+              Type: string
+            - Name: product_description
+              Type: string
+            - Name: product_price
+              Type: float
+            - Name: product_image
+              Type: string
+          InputFormat: org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat
+          Location: s3://uwm-bigdata/data/sklep/products/
+          SerdeInfo:
+            Parameters:
+              field.delim: ","
+            SerializationLibrary: org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe

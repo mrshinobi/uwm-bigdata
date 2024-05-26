@@ -1,0 +1,178 @@
+AWSTemplateFormatVersion: '2010-09-09'
+# Szablon CloudFormation tworzący bazę danych, tabele, bucket S3, rolę IAM.
+
+# zasoby do tworzenia metadanych w katalogu danych
+Resources:
+
+  # tworzenie bazy danych AWS Glue
+  MandatyDB:
+    Type: AWS::Glue::Database
+    Properties:
+      CatalogId: !Ref AWS::AccountId
+      DatabaseInput:
+        Name: mandaty
+        Description: Baza danych mandatów parkingowych
+
+  # tworzenie bucketu S3
+  MandatyS3Bucket:
+    Type: AWS::S3::Bucket
+#    DeletionPolicy: Retain
+    Properties:
+      BucketName: !Sub 'uwm-mandaty-${AWS::AccountId}'
+
+  # tworzenie roli IAM
+  MandatyGlueRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: MandatyGlueRole
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - glue.amazonaws.com
+            Action:
+              - sts:AssumeRole
+      Policies:
+        - PolicyName: bigdata-access
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - s3:GetObject
+                  - s3:PutObject
+                  - s3:ListBucket
+                  - s3:DeleteObject
+                Resource:
+                  - !Join ['', [ 'arn:aws:s3:::', !Ref "MandatyS3Bucket", /*]]
+                  - arn:aws:s3:::uwm-bigdata/*
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSGlueServiceRole
+      Path: "/"
+
+  # tworzenie tabeli AWS Glue
+  BiletyTable:
+    # najpierw tworzymy bazę danych, a następnie tabele
+    DependsOn: "MandatyDB"
+
+    Type: AWS::Glue::Table
+    Properties:
+      CatalogId: !Ref AWS::AccountId
+      DatabaseName: !Ref "MandatyDB"
+      TableInput:
+        Name: bilety
+        Description: Definicja kolumn tabeli bilety
+        TableType: EXTERNAL_TABLE
+        Parameters:
+          classification: parquet
+          typeOfData: file
+        StorageDescriptor:
+          OutputFormat: org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat
+          Columns:
+            - Name: tag_number_masked
+              Type: string
+            - Name: date_of_infraction
+              Type: string
+            - Name: ticket_date
+              Type: string
+            - Name: ticket_number
+              Type: decimal(38,0)
+            - Name: officer
+              Type: decimal(38,0)
+            - Name: infraction_code
+              Type: decimal(38,0)
+            - Name: infraction_description
+              Type: string
+            - Name: set_fine_amount
+              Type: decimal(38,0)
+            - Name: time_of_infraction
+              Type: decimal(38,0)
+            - Name: location1
+              Type: string
+            - Name: location2
+              Type: string
+            - Name: location3
+              Type: string
+            - Name: location4
+              Type: string
+            - Name: province
+              Type: string
+          InputFormat: org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat
+          Location: s3://uwm-bigdata/data/tickets/
+          SerdeInfo:
+            Parameters:
+              field.delim: ","
+            SerializationLibrary: org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe
+
+  # tworzenie tabeli AWS Glue
+  RozprawyTable:
+    DependsOn: "MandatyDB"
+    Type: AWS::Glue::Table
+    Properties:
+      CatalogId: !Ref AWS::AccountId
+      DatabaseName: !Ref "MandatyDB"
+      TableInput:
+        Name: rozprawy
+        Description: Definicja kolumn tabeli rozprawy
+        TableType: EXTERNAL_TABLE
+        Parameters:
+          classification: parquet
+          typeOfData: file
+        StorageDescriptor:
+          OutputFormat: org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat
+          Columns:
+            - Name: court_date
+              Type: date
+            - Name: court_location
+              Type: string
+            - Name: court_room
+              Type: string
+            - Name: court_time
+              Type: int
+            - Name: parking_ticket_number
+              Type: bigint
+            - Name: infraction_date
+              Type: date
+            - Name: first_3_letters_name
+              Type: string
+            - Name: sentence
+              Type: string
+          InputFormat: org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat
+          Location: s3://uwm-bigdata/data/tickets/trials/
+          SerdeInfo:
+            Parameters:
+              field.delim: ","
+            SerializationLibrary: org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe
+
+  # tworzenie tabeli AWS Glue
+  MandatyTable:
+    DependsOn: "MandatyDB"
+
+    Type: AWS::Glue::Table
+    Properties:
+      CatalogId: !Ref AWS::AccountId
+      DatabaseName: !Ref "MandatyDB"
+      TableInput:
+        Name: mandaty
+        Description: Definicja kolumn tabeli mandaty
+        TableType: EXTERNAL_TABLE
+        Parameters:
+          classification: parquet
+          typeOfData: file
+        StorageDescriptor:
+          OutputFormat: org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat
+          Columns:
+            - Name: location
+              Type: string
+            - Name: infraction
+              Type: string
+            - Name: total
+              Type: bigint
+          InputFormat: org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat
+          Location: !Sub 's3://mandaty-${AWS::AccountId}/mandaty/'
+          SerdeInfo:
+            Parameters:
+              field.delim: ","
+            SerializationLibrary: org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe
